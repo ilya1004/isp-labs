@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="lab1.DatabaseData"
+             xmlns:local="clr-namespace:lab1"
+             Title="DatabaseData">
+    <VerticalStackLayout
+        Margin="5">
+        <Picker
+            x:Name="PickerGroups"
+            SelectedIndexChanged="PickerSelectedIndexChanged"
+            Title="Выберите группу"
+            HeightRequest="80"
+            WidthRequest="300"
+            BackgroundColor="Beige"
+            Margin="10"
+            FontSize="20"/>
+        <CollectionView
+            x:Name="ListSongs"
+            HeightRequest="560"
+            VerticalScrollBarVisibility="Always">
+            <CollectionView.ItemsSource>
+                <x:Array Type="{x:Type local:SongForList}">
+
+                </x:Array>
+            </CollectionView.ItemsSource>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout 
+                        Margin="13, 10, 4, 0"
+                        Spacing="0"
+                        BackgroundColor="Cornsilk">
+                        <Label Text="{Binding SongName}" FontSize = "20"  TextColor = "#006064" Margin="5, 4, 0, 1"/>
+                        <Label Text="{Binding PublicationYear}" Margin="6, 8, 0, 4"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

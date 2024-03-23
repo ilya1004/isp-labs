@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="lab1.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:lab1"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutWidth="250"
+    Shell.BackgroundColor="#F5DEB3"
+    Shell.ForegroundColor="Black"
+    Title="lab1">
+
+    <FlyoutItem
+        Title="Главная страница">
+        <ShellContent
+            Title="Home"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        Title="Калькулятор">
+        <ShellContent
+            Title="Calculator"
+            ContentTemplate="{DataTemplate local:Calculator}"
+            Route="Calculator" />
+    </FlyoutItem>
+
+    <FlyoutItem
+    Title="ProgresDemo">
+        <ShellContent
+            Title="ProgresDemo"
+            ContentTemplate="{DataTemplate local:ProgresDemo}"
+            Route="ProgresDemo" />
+    </FlyoutItem>
+
+    <FlyoutItem
+    Title="DatabaseData">
+        <ShellContent
+        Title="DatabaseData"
+        ContentTemplate="{DataTemplate local:DatabaseData}"
+        Route="DatabaseData" />
+    </FlyoutItem>
+
+    <FlyoutItem
+    Title="CurrencyConverter">
+        <ShellContent
+    Title="CurrencyConverter"
+    ContentTemplate="{DataTemplate local:CurrencyConverter}"
+    Route="CurrencyConverter" />
+    </FlyoutItem>
+
+</Shell>
