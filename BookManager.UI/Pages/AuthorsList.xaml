@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BookManager.UI.ViewModels"
+             xmlns:converter="clr-namespace:BookManager.UI.ValueConverters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:entities="clr-namespace:BookManager.Domain.Entities;assembly=BookManager.Domain"
+             x:DataType="models:AuthorsListViewModel"
+             x:Class="BookManager.UI.Pages.AuthorsList"
+             Title="AuthorsList">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Loaded"
+            Command="{Binding UpdateAuthorsListCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ContentPage.Resources>
+        <converter:LifeYearsConverter x:Key="lifeYearsConverter" />
+        <converter:FullNameConverter x:Key="fullNameConverter" />
+        <converter:RatingToColorConverter x:Key="ratingToColorConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem 
+            Command="{Binding UpdateAuthorsListCommand}"
+            CommandParameter="{Binding Authors}"
+            IconImageSource="reload_icon.svg"/>
+        <ToolbarItem 
+            Command="{Binding AddAuthorPageCommand}"
+            CommandParameter="{Binding Authors}"
+            IconImageSource="add_icon.svg"/>
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout
+        Margin="5">
+        <Picker
+            x:Name="PickerAuthors"
+            ItemsSource="{Binding Authors}"
+            ItemDisplayBinding="{Binding Surname}"
+            SelectedItem="{Binding SelectedAuthor}"
+            Title="Выберите автора"
+            HeightRequest="80"
+            WidthRequest="330"
+            BackgroundColor="Beige"
+            Margin="10"
+            FontSize="20">
+            <Picker.Behaviors>
+                <toolkit:EventToCommandBehavior
+                    EventName="SelectedIndexChanged"
+                    Command="{Binding UpdateBooksListCommand}"/>
+            </Picker.Behaviors>
+        </Picker>
+
+
+        <VerticalStackLayout
+            HeightRequest="60"
+            WidthRequest="330"
+            BackgroundColor="Bisque"
+            Padding="6">
+            <HorizontalStackLayout
+                HeightRequest="30">
+                <Label Text="{Binding SelectedAuthor, Converter={StaticResource fullNameConverter}}" />
+            </HorizontalStackLayout>
+            <HorizontalStackLayout
+                HeightRequest="30">
+                <Label Text="{Binding SelectedAuthor, Converter={StaticResource lifeYearsConverter}}" />
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+
+        <CollectionView
+            x:Name="listBooks"
+            HeightRequest="490"
+            VerticalScrollBarVisibility="Always"
+            ItemsSource="{Binding Books}"
+            Margin="5, 10, 5, 5">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="entities:Book">
+                    <Border
+                        HeightRequest="150"
+                        Margin="5, 5, 5, 5"
+                        Stroke="{Binding Rating, Converter={StaticResource ratingToColorConverter}}"
+                        StrokeThickness="1.5"
+                        Padding="5">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="10" />
+                        </Border.StrokeShape>
+
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding
+                                Source={RelativeSource 
+                                AncestorType={x:Type models:AuthorsListViewModel} },
+                                Path=ShowDetailsCommand}"
+                                CommandParameter="{Binding}"/>
+                        </Border.GestureRecognizers>
+
+                        <HorizontalStackLayout
+                            Margin="5, 5, 0, 5">
+
+                            <Image
+                                MaximumHeightRequest="150"
+                                MinimumWidthRequest="90"
+                                Source="{Binding ImagePath}"/>
+                            <Label 
+                                FontSize="20"
+                                WidthRequest="230"
+                                Margin="5"
+                                Text="{Binding Name}"/>
+                        </HorizontalStackLayout>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </VerticalStackLayout>
+</ContentPage>

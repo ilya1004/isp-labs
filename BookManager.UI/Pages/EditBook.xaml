@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:BookManager.UI.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:entities="clr-namespace:BookManager.Domain.Entities;assembly=BookManager.Domain"
+             x:DataType="models:EditBookViewModel"
+             x:Class="BookManager.UI.Pages.EditBook"
+             Title="EditBook">
+    
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            EventName="Loaded"
+            Command="{Binding UpdateAuthorsListCommand}"/>
+    </ContentPage.Behaviors>
+
+    <ScrollView>
+        <VerticalStackLayout>
+
+            <Label 
+                Margin="0, 10"
+                Text="Редактирование информации о книге"
+                FontSize="26"
+                WidthRequest="290"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                VerticalTextAlignment="Center"/>
+
+            <VerticalStackLayout
+                Margin="10, 10"
+                Spacing="0">
+                <Label
+                    Margin="3, 0, 0, 0"
+                    FontSize="18"
+                    Text="Название:"/>
+                <Entry
+                    FontSize="18"
+                    Placeholder="Введите название"
+                    Text="{Binding Name}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Margin="10, 10"
+                Spacing="0">
+                <Label
+                    Margin="3, 0, 0, 0"
+                    FontSize="18"
+                    Text="Год издания:"/>
+                <Entry
+                    FontSize="18"
+                    Keyboard="Numeric"
+                    Placeholder="Введите год издания"
+                    Text="{Binding WritedYear}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Margin="10, 10"
+                Spacing="0">
+                <Label
+                    Margin="3, 0, 0, 0"
+                    FontSize="18"
+                    Text="Жанр:"/>
+                <Entry
+                    FontSize="18"
+                    Placeholder="Введите жанр"
+                    Text="{Binding Genre}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Margin="10, 10"
+                Spacing="0">
+                <Button
+                    Margin="10, 10"
+                    WidthRequest="170"
+                    Text="Выбрать файл"
+                    FontSize="18"
+                    Command="{Binding SelectFileCommand}"/>
+
+                <Image
+                    Source="{Binding ImagePath}"
+                    HeightRequest="150"
+                    HorizontalOptions="Center" />
+
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout
+                Margin="10, 10"
+                Spacing="5">
+                <Label
+                    Margin="3, 0, 0, 0"
+                    FontSize="18"
+                    Text="Рейтинг:"/>
+                <Label
+                    FontSize="18"
+                    Margin="5, 0, 0, 0"
+                    TextColor="Black"
+                    Text="{Binding Rating}"/>
+
+                <Stepper
+                    Minimum="0"
+                    Maximum="5"
+                    Increment="0.1"
+                    Value="{Binding Rating}"/>
+            </VerticalStackLayout>
+
+            <Picker
+                ItemsSource="{Binding Authors}"
+                ItemDisplayBinding="{Binding Surname}"
+                SelectedItem="{Binding SelectedAuthor}"
+                Title="Выберите автора"
+                HeightRequest="60"
+                WidthRequest="200"
+                BackgroundColor="Beige"
+                Margin="5"
+                FontSize="18"/>
+
+            <Button
+                Margin="0, 5, 0, 0"
+                HeightRequest="50"
+                WidthRequest="170"
+                CornerRadius="10"
+                Text="Редактировать"
+                FontSize="18"
+                Command="{Binding EnterCommand}"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

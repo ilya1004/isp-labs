@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="BookManager.UI.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:BookManager.UI"
+    xmlns:pages="clr-namespace:BookManager.UI.Pages"
+    Shell.FlyoutBehavior="Flyout"
+    Shell.FlyoutWidth="270"
+    Shell.BackgroundColor="#F5DEB3"
+    Shell.ForegroundColor="Black"
+    Title="BookManager.UI">
+
+    <FlyoutItem
+        Icon="home_icon.png"
+        Title="Home">
+        <ShellContent
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
+    </FlyoutItem>
+
+    <FlyoutItem
+        Icon="list_icon.png"
+        Title="Authors list">
+        <ShellContent
+            ContentTemplate="{DataTemplate pages:AuthorsList}"
+            Route="AuthorsList" />
+    </FlyoutItem>
+
+</Shell>
